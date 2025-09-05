@@ -1,6 +1,7 @@
 import { Column, Heading, Meta, Schema, Row, Text, Card, Icon, Button } from "@once-ui-system/core";
 import { baseURL, about, person, contact } from "@/resources";
 import { ContactForm } from "@/components";
+import styles from "./Contact.module.scss";
 
 export async function generateMetadata() {
   return Meta.generate({
@@ -14,7 +15,7 @@ export async function generateMetadata() {
 
 export default function Contact() {
   return (
-    <Column maxWidth="m" paddingTop="24">
+    <Column maxWidth="l" paddingTop="24" paddingX="16">
       <Schema
         as="webPage"
         baseURL={baseURL}
@@ -29,102 +30,180 @@ export default function Contact() {
         }}
       />
       
-      {/* Page Header */}
-      <Column gap="24" marginBottom="40">
-        <Heading marginBottom="l" variant="heading-strong-xl" align="center">
-          {contact.label}
+      {/* Hero Section */}
+      <Column gap="24" marginBottom="64" horizontal="center">
+        <Heading variant="heading-strong-xl" align="center">
+          <Text onBackground="neutral-strong">Let's </Text>
+          <Text onBackground="brand-medium">Connect</Text>
         </Heading>
         
-        {contact.intro.display && (
-          <Column gap="16" horizontal="center" maxWidth={32}>
-            <Heading variant="heading-strong-l" align="center">
-              {contact.intro.title}
-            </Heading>
-            <Text 
-              variant="body-default-l" 
-              onBackground="neutral-weak" 
-              align="center"
-            >
-              {contact.intro.description}
-            </Text>
-          </Column>
-        )}
+        <Column horizontal="center" maxWidth={32}>
+          <Text 
+            variant="body-default-l" 
+            onBackground="neutral-weak" 
+            align="center"
+          >
+            Ready to collaborate or have questions?
+          </Text>
+        </Column>
       </Column>
 
-      {/* Contact Methods */}
-      {contact.methods.display && (
-        <Column gap="32" marginBottom="64">
-          <Row gap="24" wrap horizontal="center">
-            {contact.methods.items.map((method, index) => (
-              <Card
-                key={index}
-                href={method.link}
-                radius="l"
-                border="neutral-alpha-medium"
-                background="neutral-alpha-weak"
-                padding="24"
-                direction="column"
-                gap="16"
-                minWidth="16"
-                horizontal="start"
-                vertical="center"
-              >
-                <Row gap="12" vertical="center">
-                  <Icon 
-                    name={method.icon} 
-                    size="l" 
-                    onBackground="brand-medium"
+      {/* Main Content - Properly Responsive Layout */}
+      <div className={styles.responsiveLayout}>
+        
+        {/* Left Column - Profile & Social */}
+        <div className={styles.leftColumn}>
+          <Column gap="32">
+            
+            {/* Contact Info Card */}
+            <Card
+              radius="l"
+              border="neutral-alpha-medium"
+              background="neutral-alpha-weak"
+              padding="24"
+              fillWidth
+            >
+              <Row gap="16" vertical="start">
+                {/* Profile Photo */}
+                <Column fillWidth={false}>
+                  <img
+                    src="/images/avatar.jpg"
+                    alt="Ragul Sundaram"
+                    style={{
+                      width: "80px",
+                      height: "80px",
+                      borderRadius: "16px",
+                      objectFit: "cover",
+                      border: "2px solid var(--brand-medium)",
+                    }}
                   />
-                  <Column gap="4">
-                    <Text variant="label-strong-m" onBackground="neutral-strong">
-                      {method.name}
+                </Column>
+                
+                {/* Profile Info */}
+                <Column gap="12" flex={1}>
+                  {/* Available Status */}
+                  <Row gap="8" vertical="center">
+                    <div 
+                      style={{
+                        width: "8px",
+                        height: "8px",
+                        backgroundColor: "var(--brand-medium)",
+                        borderRadius: "50%",
+                        opacity: 1,
+                      }}
+                    />
+                    <Text variant="body-default-xs" onBackground="brand-medium">
+                      Available To Work
                     </Text>
-                    <Text variant="body-default-s" onBackground="brand-medium">
-                      {method.value}
+                  </Row>
+                  
+                  {/* Name & Role */}
+                  <Column gap="4">
+                    <Text variant="label-strong-l" onBackground="neutral-strong">
+                      Ragul Sundaram
+                    </Text>
+                    <Text variant="body-default-s" onBackground="neutral-weak">
+                      Product Manager
                     </Text>
                   </Column>
-                </Row>
-                {method.description && (
-                  <Text variant="body-default-s" onBackground="neutral-weak">
-                    {method.description}
-                  </Text>
-                )}
-              </Card>
-            ))}
-          </Row>
-        </Column>
-      )}
+                  
+                  {/* Contact Details */}
+                  <Column gap="8">
+                    <Row gap="8" vertical="center">
+                      <Icon name="email" size="xs" onBackground="brand-medium" />
+                      <Text variant="body-default-s" onBackground="neutral-medium">
+                        ragul@ragulsundaram.in
+                      </Text>
+                    </Row>
+                    
+                    <Row gap="8" vertical="center">
+                      <Icon name="globe" size="xs" onBackground="brand-medium" />
+                      <Text variant="body-default-s" onBackground="neutral-medium">
+                        Chennai, India
+                      </Text>
+                    </Row>
+                  </Column>
+                </Column>
+              </Row>
+            </Card>
 
-      {/* Contact Form */}
-      {contact.form.display && (
-        <Column gap="24">
-          <Column gap="12" horizontal="center" maxWidth={32}>
-            <Heading variant="heading-strong-l" align="center">
-              {contact.form.title}
-            </Heading>
-            {contact.form.description && (
-              <Text 
-                variant="body-default-m" 
-                onBackground="neutral-weak" 
-                align="center"
-              >
-                {contact.form.description}
+            {/* Social Links */}
+            <Column gap="16">
+              <Text variant="label-strong-m" onBackground="neutral-strong">
+                Follow Me
               </Text>
-            )}
+              
+              <Column gap="12">
+                <Card
+                  href="https://www.linkedin.com/in/ragulsundaram/"
+                  radius="m"
+                  border="neutral-alpha-medium"
+                  background="neutral-alpha-weak"
+                  padding="16"
+                  fillWidth
+                >
+                  <Row gap="12" vertical="center">
+                    <Icon name="linkedin" size="m" onBackground="brand-medium" />
+                    <Column gap="2">
+                      <Text variant="label-default-m" onBackground="neutral-strong">
+                        LinkedIn
+                      </Text>
+                      <Text variant="body-default-xs" onBackground="neutral-weak">
+                        18K+ Followers • Professional Updates
+                      </Text>
+                    </Column>
+                  </Row>
+                </Card>
+                
+                <Card
+                  href="https://www.instagram.com/ragulsundaram/"
+                  radius="m"
+                  border="neutral-alpha-medium"
+                  background="neutral-alpha-weak"
+                  padding="16"
+                  fillWidth
+                >
+                  <Row gap="12" vertical="center">
+                    <Icon name="instagram" size="m" onBackground="brand-medium" />
+                    <Column gap="2">
+                      <Text variant="label-default-m" onBackground="neutral-strong">
+                        Instagram
+                      </Text>
+                      <Text variant="body-default-xs" onBackground="neutral-weak">
+                        17K+ Followers • Behind the Scenes
+                      </Text>
+                    </Column>
+                  </Row>
+                </Card>
+              </Column>
+            </Column>
           </Column>
-          
+        </div>
+
+        {/* Right Column - Contact Form */}
+        <div className={styles.rightColumn}>
           <Card
             radius="l"
             border="neutral-alpha-medium"
             background="neutral-alpha-weak"
             padding="32"
-            maxWidth={32}
-            horizontal="center"
+            fillWidth
           >
-            <ContactForm />
+            <Column gap="24">
+              <Column gap="12">
+                <Text variant="heading-strong-l" onBackground="neutral-strong">
+                  Send me a message
+                </Text>
+                <Text variant="body-default-m" onBackground="neutral-weak">
+                  Fill out the form below and I'll get back to you as soon as possible.
+                </Text>
+              </Column>
+              
+              <ContactForm />
+            </Column>
           </Card>
-        </Column>
-      )}
+        </div>
+      </div>
     </Column>
   );
 }
