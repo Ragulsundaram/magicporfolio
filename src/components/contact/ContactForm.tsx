@@ -287,28 +287,13 @@ export function ContactForm() {
           />
 
           {/* Newsletter Subscription */}
-          <Column gap="16">
-            <Text variant="label-default-s" onBackground="neutral-medium">
-              Subscribe to
-            </Text>
-            
-            <Column gap="8">
-              <Row gap="8" vertical="center">
-                <Icon name="email" size="s" onBackground="brand-medium" />
-                <Text variant="body-default-s" onBackground="neutral-weak">
-                  Contact Me List (automatically included)
-                </Text>
-              </Row>
-              
-              <Checkbox
-                id="newsletter"
-                label="Subscribe to Newsletter"
-                description="Weekly updates on design, tech, and product insights"
-                checked={formData.subscribeNewsletter}
-                onChange={handleNewsletterChange}
-              />
-            </Column>
-          </Column>
+          <Checkbox
+            id="newsletter"
+            label="Subscribe to Newsletter"
+            description="Weekly updates on design, tech, and product insights"
+            checked={formData.subscribeNewsletter}
+            onChange={handleNewsletterChange}
+          />
 
           {/* Submit Button */}
           <Row horizontal="end">
