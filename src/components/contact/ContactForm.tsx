@@ -4,14 +4,15 @@ import React, { useState } from "react";
 import { 
   Column, 
   Row, 
-  Input, 
+  Input,
   Button, 
   Text, 
   useToast, 
   Textarea,
   Select,
   Icon,
-  Checkbox
+  Checkbox,
+  Feedback
 } from "@once-ui-system/core";
 import styles from "./ContactForm.module.scss";
 
@@ -166,16 +167,55 @@ export function ContactForm() {
         setIsSubmitted(true);
         addToast({
           variant: "success",
-          message: "Thank you for your message! I'll get back to you soon.",
+          message: "Message sent successfully! I'll get back to you soon.",
         });
       } else {
-        throw new Error(result.error || 'Submission failed');
+        // Handle subscription error gracefully
+        let errorMessage = "Something went wrong. Please try again.";
+        
+        if (result.error) {
+          // Check if the error contains "Subscription failed:" prefix
+          if (typeof result.error === 'string' && result.error.includes('Subscription failed:')) {
+            // Extract the JSON part after "Subscription failed: "
+            const jsonPart = result.error.replace('Subscription failed: ', '');
+            try {
+              const parsedError = JSON.parse(jsonPart);
+              if (parsedError.message) {
+                errorMessage = `Subscription failed: ${parsedError.message}`;
+              }
+            } catch {
+              // If JSON parsing fails, use the original error
+              errorMessage = result.error;
+            }
+          } else if (typeof result.error === 'string') {
+            try {
+              // Try to parse JSON error message and extract just the message value
+              const parsedError = JSON.parse(result.error);
+              if (parsedError.message) {
+                errorMessage = parsedError.message;
+              }
+            } catch {
+              // If not JSON, use the string as is
+              errorMessage = result.error;
+            }
+          } else if (result.error.message) {
+            errorMessage = result.error.message;
+          }
+        }
+        
+        throw new Error(errorMessage);
       }
     } catch (error) {
       console.error('Error submitting form:', error);
+      let errorMessage = "Something went wrong. Please try again later.";
+      
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      
       addToast({
         variant: "danger",
-        message: "Something went wrong. Please try again later.",
+        message: errorMessage,
       });
     } finally {
       setIsSubmitting(false);
@@ -191,20 +231,12 @@ export function ContactForm() {
         vertical="center"
         padding="40"
         minHeight="20"
-        radius="l"
-        border="neutral-alpha-medium"
-        background="neutral-alpha-weak"
       >
-        <Icon name="email" size="xl" onBackground="brand-medium" />
-        <Column gap="8" horizontal="center">
-          <Text variant="heading-strong-l" align="center">
-            <Text onBackground="neutral-strong">Submitted</Text>{' '}
-            <Text onBackground="brand-medium">Successfully!</Text>
-          </Text>
-          <Text variant="body-default-m" onBackground="neutral-weak" align="center">
-            Thank you for reaching out, I'll get back to you soon.
-          </Text>
-        </Column>
+        <Feedback
+          variant="success"
+          title="Message Sent Successfully!"
+          description="Thank you for reaching out. I'll get back to you as soon as possible."
+        />
       </Column>
     );
   }
@@ -278,7 +310,6 @@ export function ContactForm() {
             onChange={handleInputChange("message")}
             lines={6}
             resize="vertical"
-            hasPrefix={<Icon name="message" size="xs" onBackground="neutral-weak" marginLeft="4" />}
           />
 
           {/* Newsletter Subscription */}
@@ -287,6 +318,7 @@ export function ContactForm() {
             label="Subscribe to Newsletter"
             description="Weekly updates on design, tech, and product insights"
             checked={formData.subscribeNewsletter}
+            defaultChecked={true}
             onChange={handleNewsletterChange}
           />
 
