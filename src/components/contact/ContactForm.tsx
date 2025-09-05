@@ -10,7 +10,8 @@ import {
   useToast, 
   Textarea,
   Select,
-  Icon
+  Icon,
+  Checkbox
 } from "@once-ui-system/core";
 import styles from "./ContactForm.module.scss";
 
@@ -220,103 +221,70 @@ export function ContactForm() {
           {/* Name and Email Row - Responsive */}
           <Row gap="16" wrap>
             <Column flex={1} minWidth="16" gap="8">
-              <div style={{ paddingLeft: "16px" }}>
-                <Text variant="label-default-s" onBackground="neutral-medium">
-                  Name *
-                </Text>
-              </div>
               <Input
                 id="name"
+                label="Name *"
                 value={formData.name}
                 onChange={handleInputChange("name")}
-                placeholder="Your full name"
-                hasPrefix={<Icon name="person" size="xs" onBackground="neutral-weak" />}
+                hasPrefix={<Icon name="person" size="xs" onBackground="neutral-weak" marginLeft="4" />}
                 required
               />
             </Column>
             <Column flex={1} minWidth="16" gap="8">
-              <div style={{ paddingLeft: "16px" }}>
-                <Text variant="label-default-s" onBackground="neutral-medium">
-                  Email *
-                </Text>
-              </div>
               <Input
                 id="email"
+                label="Email *"
                 type="email"
                 value={formData.email}
                 onChange={handleInputChange("email")}
-                placeholder="your.email@example.com"
-                hasPrefix={<Icon name="email" size="xs" onBackground="neutral-weak" />}
+                hasPrefix={<Icon name="email" size="xs" onBackground="neutral-weak" marginLeft="4" />}
                 required
               />
             </Column>
           </Row>
 
           {/* Role Selection */}
-          <Column gap="8">
-            <div style={{ paddingLeft: "16px" }}>
-              <Text variant="label-default-s" onBackground="neutral-medium">
-                Role *
-              </Text>
-            </div>
-            <Select
-              id="role"
-              options={roleOptions}
-              value={formData.role}
-              onSelect={handleSelectChange("role")}
-              searchable={false}
-            />
-          </Column>
+          <Select
+            id="role"
+            label="Role *"
+            options={roleOptions}
+            value={formData.role}
+            onSelect={handleSelectChange("role")}
+            searchable={false}
+          />
 
           {/* LinkedIn and Phone Row - Responsive */}
           <Row gap="16" wrap>
             <Column flex={1} minWidth="16" gap="8">
-              <div style={{ paddingLeft: "16px" }}>
-                <Text variant="label-default-s" onBackground="neutral-medium">
-                  LinkedIn Profile
-                </Text>
-              </div>
               <Input
                 id="linkedin"
+                label="LinkedIn Profile"
                 type="url"
                 value={formData.linkedin}
                 onChange={handleInputChange("linkedin")}
-                placeholder="https://linkedin.com/in/yourprofile"
-                hasPrefix={<Icon name="linkedin" size="xs" onBackground="neutral-weak" />}
+                hasPrefix={<Icon name="linkedin" size="xs" onBackground="neutral-weak" marginLeft="4" />}
               />
             </Column>
             <Column flex={1} minWidth="16" gap="8">
-              <div style={{ paddingLeft: "16px" }}>
-                <Text variant="label-default-s" onBackground="neutral-medium">
-                  Phone Number
-                </Text>
-              </div>
               <Input
                 id="phone"
+                label="Phone Number"
                 type="tel"
                 value={formData.phone}
                 onChange={handleInputChange("phone")}
-                placeholder="+91 12345 67890"
               />
             </Column>
           </Row>
 
           {/* Message */}
-          <Column gap="8">
-            <div style={{ paddingLeft: "16px" }}>
-              <Text variant="label-default-s" onBackground="neutral-medium">
-                Message
-              </Text>
-            </div>
-            <Textarea
-              id="message"
-              value={formData.message}
-              onChange={handleInputChange("message")}
-              placeholder="Tell me about your project, ideas, or how I can help you..."
-              lines={6}
-              resize="vertical"
-            />
-          </Column>
+          <Textarea
+            id="message"
+            label="Message"
+            value={formData.message}
+            onChange={handleInputChange("message")}
+            lines={6}
+            resize="vertical"
+          />
 
           {/* Newsletter Subscription */}
           <Column gap="16">
@@ -332,27 +300,13 @@ export function ContactForm() {
                 </Text>
               </Row>
               
-              <Row gap="12" vertical="center">
-                <input
-                  id="newsletter"
-                  type="checkbox"
-                  checked={formData.subscribeNewsletter}
-                  onChange={handleNewsletterChange}
-                  style={{
-                    width: "16px",
-                    height: "16px",
-                    accentColor: "var(--brand-medium)",
-                  }}
-                />
-                <Column gap="4">
-                  <Text variant="body-default-s" onBackground="neutral-strong">
-                    Subscribe to Newsletter
-                  </Text>
-                  <Text variant="body-default-xs" onBackground="neutral-weak">
-                    Weekly updates on design, tech, and product insights
-                  </Text>
-                </Column>
-              </Row>
+              <Checkbox
+                id="newsletter"
+                label="Subscribe to Newsletter"
+                description="Weekly updates on design, tech, and product insights"
+                checked={formData.subscribeNewsletter}
+                onChange={handleNewsletterChange}
+              />
             </Column>
           </Column>
 
