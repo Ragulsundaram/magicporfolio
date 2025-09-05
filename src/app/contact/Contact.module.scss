@@ -2,6 +2,7 @@
   display: flex;
   gap: 4rem;
   margin-bottom: 4rem;
+  width: 100%;
   
   // Desktop: Two columns
   @media (min-width: 769px) {
@@ -12,6 +13,7 @@
     .rightColumn {
       flex: 1;
       min-width: 320px;
+      width: 100%;
     }
   }
   
@@ -19,11 +21,24 @@
   @media (max-width: 768px) {
     flex-direction: column;
     gap: 2rem;
+    width: 100%;
+    margin: 0;
+    padding: 0;
     
     .leftColumn,
     .rightColumn {
       width: 100%;
       flex: none;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .rightColumn {
+      // Ensure the form container fills completely
+      > * {
+        width: 100% !important;
+        margin: 0 !important;
+      }
     }
   }
 }

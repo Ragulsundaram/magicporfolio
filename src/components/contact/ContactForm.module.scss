@@ -1,15 +1,46 @@
 .contactForm {
-  // Mobile responsiveness - only apply on small screens
-  @media (max-width: 768px) {
-    // Force form fields to stack on mobile by overriding flex
-    :global(.Row_row__gQNUF) {
-      flex-direction: column !important;
-      
-      > :global(.Column_column__hNAOc) {
-        width: 100% !important;
-        min-width: unset !important;
-        flex: unset !important;
-      }
-    }
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  
+  form {
+    width: 100%;
+    max-width: 600px; // Limit form width on larger screens
+    margin: 0 auto; // Center the form
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  // Center all form inputs
+  :global(.Input_input__container__E2bCR),
+  :global(.Select_select__container__I5zKx),
+  :global(.Textarea_textarea__container__A7mKq),
+  :global(.Checkbox_checkbox__container__N8sKL) {
+    width: 100%;
+    max-width: 500px; // Consistent input width
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  
+  // Center the submit button row
+  :global(.Row_row__gQNUF) {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  // Center the main form column
+  form > :global(.Column_column__hNAOc) {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
   }
 }

@@ -216,32 +216,28 @@ export function ContactForm() {
           as="form" 
           onSubmit={handleSubmit}
           fillWidth 
-          gap="32"
+          gap="24"
         >
-          {/* Name and Email Row - Responsive */}
-          <Row gap="16" wrap>
-            <Column flex={1} minWidth="16" gap="8">
-              <Input
-                id="name"
-                label="Name *"
-                value={formData.name}
-                onChange={handleInputChange("name")}
-                hasPrefix={<Icon name="person" size="xs" onBackground="neutral-weak" marginLeft="4" />}
-                required
-              />
-            </Column>
-            <Column flex={1} minWidth="16" gap="8">
-              <Input
-                id="email"
-                label="Email *"
-                type="email"
-                value={formData.email}
-                onChange={handleInputChange("email")}
-                hasPrefix={<Icon name="email" size="xs" onBackground="neutral-weak" marginLeft="4" />}
-                required
-              />
-            </Column>
-          </Row>
+          {/* Name Field */}
+          <Input
+            id="name"
+            label="Name *"
+            value={formData.name}
+            onChange={handleInputChange("name")}
+            hasPrefix={<Icon name="person" size="xs" onBackground="neutral-weak" marginLeft="4" />}
+            required
+          />
+
+          {/* Email Field */}
+          <Input
+            id="email"
+            label="Email *"
+            type="email"
+            value={formData.email}
+            onChange={handleInputChange("email")}
+            hasPrefix={<Icon name="email" size="xs" onBackground="neutral-weak" marginLeft="4" />}
+            required
+          />
 
           {/* Role Selection */}
           <Select
@@ -251,30 +247,28 @@ export function ContactForm() {
             value={formData.role}
             onSelect={handleSelectChange("role")}
             searchable={false}
+            hasPrefix={<Icon name="role" size="xs" onBackground="neutral-weak" marginLeft="4" />}
           />
 
-          {/* LinkedIn and Phone Row - Responsive */}
-          <Row gap="16" wrap>
-            <Column flex={1} minWidth="16" gap="8">
-              <Input
-                id="linkedin"
-                label="LinkedIn Profile"
-                type="url"
-                value={formData.linkedin}
-                onChange={handleInputChange("linkedin")}
-                hasPrefix={<Icon name="linkedin" size="xs" onBackground="neutral-weak" marginLeft="4" />}
-              />
-            </Column>
-            <Column flex={1} minWidth="16" gap="8">
-              <Input
-                id="phone"
-                label="Phone Number"
-                type="tel"
-                value={formData.phone}
-                onChange={handleInputChange("phone")}
-              />
-            </Column>
-          </Row>
+          {/* LinkedIn Field */}
+          <Input
+            id="linkedin"
+            label="LinkedIn Profile"
+            type="url"
+            value={formData.linkedin}
+            onChange={handleInputChange("linkedin")}
+            hasPrefix={<Icon name="linkedin" size="xs" onBackground="neutral-weak" marginLeft="4" />}
+          />
+
+          {/* Phone Field */}
+          <Input
+            id="phone"
+            label="Phone Number"
+            type="tel"
+            value={formData.phone}
+            onChange={handleInputChange("phone")}
+            hasPrefix={<Icon name="phone" size="xs" onBackground="neutral-weak" marginLeft="4" />}
+          />
 
           {/* Message */}
           <Textarea
@@ -284,6 +278,7 @@ export function ContactForm() {
             onChange={handleInputChange("message")}
             lines={6}
             resize="vertical"
+            hasPrefix={<Icon name="message" size="xs" onBackground="neutral-weak" marginLeft="4" />}
           />
 
           {/* Newsletter Subscription */}
