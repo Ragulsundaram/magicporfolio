@@ -1,4 +1,4 @@
-import { About, Blog, Gallery, Home, Newsletter, Person, Social, Work } from "@/types";
+import { About, Blog, Contact, Gallery, Home, Newsletter, Person, Social, Work } from "@/types";
 import { Line, Logo, Row, Text } from "@once-ui-system/core";
 
 const person: Person = {
@@ -297,4 +297,57 @@ const gallery: Gallery = {
   ],
 };
 
-export { person, social, newsletter, home, about, blog, work, gallery };
+const contact: Contact = {
+  path: "/contact",
+  label: "Contact",
+  title: `Contact – ${person.name}`,
+  description: `Get in touch with ${person.name}`,
+  intro: {
+    display: true,
+    title: "Let's connect",
+    description: (
+      <>
+        Whether you have a project in mind, want to collaborate, or just want to say hello, 
+        I'd love to hear from you. Feel free to reach out through any of the channels below.
+      </>
+    ),
+  },
+  methods: {
+    display: true,
+    items: [
+      {
+        name: "Email",
+        icon: "email",
+        value: person.email,
+        link: `mailto:${person.email}`,
+        description: "Best way to reach me for professional inquiries",
+      },
+      {
+        name: "LinkedIn",
+        icon: "linkedin", 
+        value: "Connect on LinkedIn",
+        link: "https://www.linkedin.com/company/once-ui/",
+        description: "Let's connect professionally",
+      },
+      {
+        name: "GitHub",
+        icon: "github",
+        value: "Follow on GitHub",
+        link: "https://github.com/once-ui-system",
+        description: "Check out my latest projects",
+      },
+    ],
+  },
+  form: {
+    display: true,
+    title: "Send me a message",
+    description: (
+      <>
+        Or fill out the form below and I'll get back to you as soon as possible.
+      </>
+    ),
+    endpoint: process.env.NEXT_PUBLIC_LISTMONK_ENDPOINT,
+  },
+};
+
+export { person, social, newsletter, home, about, blog, work, gallery, contact };

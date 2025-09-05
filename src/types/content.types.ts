@@ -236,3 +236,48 @@ export interface Gallery extends BasePageConfig {
     orientation: string;
   }>;
 }
+
+/**
+ * Contact page configuration.
+ * @description Configuration for the Contact page, including contact information and social links.
+ */
+export interface Contact extends BasePageConfig {
+  /** Contact introduction */
+  intro: {
+    /** Whether to display the introduction */
+    display: boolean;
+    /** Title of the contact section */
+    title: string;
+    /** Description or message for visitors */
+    description: React.ReactNode;
+  };
+  /** Contact methods */
+  methods: {
+    /** Whether to display contact methods */
+    display: boolean;
+    /** List of contact methods */
+    items: Array<{
+      /** Method name (e.g., "Email", "Phone") */
+      name: string;
+      /** Icon for the contact method */
+      icon: IconName;
+      /** Contact value (email, phone number, etc.) */
+      value: string;
+      /** Link for the contact method */
+      link: string;
+      /** Optional description */
+      description?: string;
+    }>;
+  };
+  /** Contact form configuration */
+  form: {
+    /** Whether to display the contact form */
+    display: boolean;
+    /** Form title */
+    title: string;
+    /** Form description */
+    description?: React.ReactNode;
+    /** Listmonk API endpoint */
+    endpoint?: string;
+  };
+}

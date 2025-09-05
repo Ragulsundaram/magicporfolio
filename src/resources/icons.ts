@@ -30,11 +30,12 @@ import {
 } from "react-icons/si";
 
 import { FaDiscord, FaGithub, FaLinkedin, FaX, FaThreads, FaXTwitter, FaFacebook, FaPinterest, FaWhatsapp, FaReddit, FaTelegram, } from "react-icons/fa6";
+import { RiGithubLine, RiLinkedinLine, RiMailLine } from "react-icons/ri";
 
 export const iconLibrary: Record<string, IconType> = {
   arrowUpRight: HiArrowUpRight,
   arrowRight: HiArrowRight,
-  email: HiEnvelope,
+  email: RiMailLine,
   globe: HiOutlineGlobeAsiaAustralia,
   person: PiUserCircleDuotone,
   grid: PiGridFourDuotone,
@@ -46,8 +47,8 @@ export const iconLibrary: Record<string, IconType> = {
   discord: FaDiscord,
   eye: HiOutlineEye,
   eyeOff: HiOutlineEyeSlash,
-  github: FaGithub,
-  linkedin: FaLinkedin,
+  github: RiGithubLine,
+  linkedin: RiLinkedinLine,
   x: FaX,
   twitter: FaXTwitter,
   threads: FaThreads,
