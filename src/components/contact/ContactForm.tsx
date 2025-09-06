@@ -350,7 +350,9 @@ export function ContactForm() {
         s={{ maxWidth: 14, padding: "8" }}
         style={{
           height: "fit-content",
-          maxHeight: "80vh"
+          maxHeight: "80vh",
+          marginTop: "20vh",
+          marginBottom: "20vh"
         }}
         footer={
           <Row gap="8" horizontal="end" fillWidth>
@@ -370,9 +372,11 @@ export function ContactForm() {
           </Row>
         }
       >
-        <Text variant="body-default-s">
-          You'll miss out on exclusive resources and content
-        </Text>
+        <Column fillWidth>
+          <Text variant="body-default-s" style={{ marginBottom: "2px" }}>
+            You'll miss out on exclusive resources and content
+          </Text>
+        </Column>
       </Dialog>
     </>
   );
