@@ -12,7 +12,8 @@ import {
   Select,
   Icon,
   Checkbox,
-  Feedback
+  Feedback,
+  Dialog
 } from "@once-ui-system/core";
 import styles from "./ContactForm.module.scss";
 
@@ -36,6 +37,7 @@ export function ContactForm() {
     message: "",
     subscribeNewsletter: true,
   });
+  
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
@@ -68,8 +70,10 @@ export function ContactForm() {
 
   const handleNewsletterChange = () => {
     if (formData.subscribeNewsletter) {
+      // User is trying to uncheck - show confirmation dialog
       setShowConfirmDialog(true);
     } else {
+      // User is checking the box - allow it
       setFormData(prev => ({
         ...prev,
         subscribeNewsletter: true,
@@ -317,9 +321,8 @@ export function ContactForm() {
             id="newsletter"
             label="Subscribe to Newsletter"
             description="Weekly updates on design, tech, and product insights"
-            checked={formData.subscribeNewsletter}
-            defaultChecked={true}
-            onChange={handleNewsletterChange}
+            isChecked={formData.subscribeNewsletter}
+            onToggle={handleNewsletterChange}
           />
 
           {/* Submit Button */}
@@ -338,58 +341,39 @@ export function ContactForm() {
       </div>
 
       {/* Confirmation Dialog */}
-      {showConfirmDialog && (
-        <div 
-          style={{
-            position: "fixed",
-            inset: 0,
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            zIndex: 50,
-            padding: "16px",
-          }}
-        >
-          <Column
-            background="page"
-            radius="l"
-            padding="32"
-            maxWidth="20"
-            border="neutral-alpha-medium"
-            gap="24"
-            style={{
-              boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
-            }}
-          >
-            <Column gap="16" horizontal="center">
-              <Text variant="heading-strong-l" onBackground="neutral-strong" align="center">
-                Are you sure?
-              </Text>
-              <Text variant="body-default-m" onBackground="neutral-weak" align="center">
-                You'll miss out on exclusive resources and content
-              </Text>
-            </Column>
-            
-            <Row gap="12">
-              <Button
-                variant="tertiary"
-                fillWidth
-                onClick={confirmUnsubscribe}
-              >
-                Unsubscribe
-              </Button>
-              <Button
-                variant="primary"
-                fillWidth
-                onClick={cancelUnsubscribe}
-              >
-                Keep Subscription
-              </Button>
-            </Row>
-          </Column>
-        </div>
-      )}
+      <Dialog
+        isOpen={showConfirmDialog}
+        onClose={() => setShowConfirmDialog(false)}
+        title="Are you sure?"
+        maxWidth={16}
+        padding="12"
+        s={{ maxWidth: 14, padding: "8" }}
+        style={{
+          height: "fit-content",
+          maxHeight: "80vh"
+        }}
+        footer={
+          <Row gap="8" horizontal="end" fillWidth>
+            <Button 
+              variant="secondary" 
+              onClick={cancelUnsubscribe}
+              size="s"
+            >
+              Keep Subscription
+            </Button>
+            <Button 
+              onClick={confirmUnsubscribe}
+              size="s"
+            >
+              Unsubscribe
+            </Button>
+          </Row>
+        }
+      >
+        <Text variant="body-default-s">
+          You'll miss out on exclusive resources and content
+        </Text>
+      </Dialog>
     </>
   );
 }
